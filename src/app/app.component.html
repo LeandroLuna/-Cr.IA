@@ -1,0 +1,51 @@
+<div class="container my-5">
+  <h1 class="text-center text-white font-weight-bold fs-1 font-monospace">Cr.<span class="text-decoration-line-through">IA</span></h1>
+  <form (ngSubmit)="onLoadImages()">
+    <div class="input-group">
+      <div class="input-group-prepend">
+        <span class="input-group-text" id="inputGroup-sizing-default">Image Description</span>
+      </div>
+      <input type="text" name="description" class="form-control" aria-label="Default" aria-describedby="inputGroup-sizing-default" [(ngModel)]="formData.prompt" required>
+    </div>
+    <div class="input-group my-3">
+      <div class="input-group-prepend">
+        <label class="input-group-text" for="size">Size</label>
+      </div>
+      <select class="form-select" name="size" id="size" [(ngModel)]="formData.size">
+        <option value="256x256">256x256</option>
+        <option value="512x512">512x512</option>
+        <option value="1024x1024">1024x1024</option>
+      </select>
+    </div>
+    <div class="input-group">
+      <div class="input-group-prepend">
+        <span class="input-group-text" id="inputGroup-sizing-default">Quantity</span>
+      </div>
+      <div class="container mt-2">
+        <div class="row">
+          <div class="col-11">
+            <input type="range" name="quantity" class="form-range" min="1" max="10" step="1" aria-label="Default" aria-describedby="inputGroup-sizing-default" [(ngModel)]="formData.quantity">
+          </div>
+          <div class="col-1 text-white text-center">
+            {{formData.quantity}}
+          </div>
+        </div>
+      </div>
+      <br>
+    </div>
+    <div class="d-flex justify-content-center my-3">
+      <button class="btn btn-success w-25 text-center" type="submit" [disabled]="!formData.prompt">Search</button>
+    </div>
+  </form>
+  <div *ngIf="isLoading; else images" class="d-flex justify-content-center">
+    <mat-spinner></mat-spinner>
+  </div>
+  <ng-template #images>
+    <div *ngIf="generatedImages">
+      <hr>
+    </div>
+    <div class="d-flex justify-content-around flex-wrap">
+      <app-image-card *ngFor="let image of generatedImages" imageURL="{{image.url}}"></app-image-card>
+    </div>
+  </ng-template>
+</div>
