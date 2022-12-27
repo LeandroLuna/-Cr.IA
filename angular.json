@@ -3,7 +3,7 @@
   "version": 1,
   "newProjectRoot": "projects",
   "projects": {
-    "Cr.IA": {
+    "CrIA": {
       "projectType": "application",
       "schematics": {
         "@schematics/angular:class": {
@@ -70,6 +70,13 @@
                   "maximumError": "4kb"
                 }
               ],
+              "optimization": {
+                "scripts": true,
+                "styles": {
+                  "minify": true,
+                  "inlineCritical": false
+                }
+              },
               "outputHashing": "all"
             },
             "development": {
@@ -119,6 +126,9 @@
             ],
             "scripts": []
           }
+        },
+        "deploy": {
+          "builder": "@jefiozie/ngx-aws-deploy:deploy"
         }
       }
     }
